@@ -1,8 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
-import { Button, Div, Page, Stack, Text } from '@lightbridge/ui';
+import { Button, Div, Lottie, Page, Stack, Text } from '@lightbridge/ui';
+
+const fingerprintSource = require('@lightbridge/ui/src/assets/lotties/auth/fingerprint-success.json');
 
 const helpIconButtonStyle = {
   position: 'absolute',
@@ -90,7 +92,7 @@ export function LoginView({
 
           <Stack align="center" gap="lg" width="full">
             <Div rounded="xl" pad="lg" style={fingerprintContainerStyle}>
-              <MaterialCommunityIcons name="fingerprint" size={40} color="#2563eb" />
+              <Lottie source={fingerprintSource} size="md" loop={false} />
             </Div>
 
             <Stack align="center" gap="sm" width="full">
@@ -108,8 +110,9 @@ export function LoginView({
               disabled={loading}
               onPress={onSsoPress}
               style={ssoButtonStyle}
+              textProps={{ style: { color: '#ffffff' } }}
             >
-              <Ionicons name="lock-closed" size={18} color="#ffffff" />{' '}
+              <Ionicons name="lock-closed" size={18} color="#ffffff" />
               {loading ? t('login.ssoLoading') : t('login.sso')}
             </Button>
 

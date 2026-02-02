@@ -13,6 +13,8 @@ export { Div, divVariants } from './components/div';
 export type { DivProps } from './components/div';
 export { Image, imageVariants } from './components/image';
 export type { ImageProps } from './components/image';
+export { Lottie, lottieVariants } from './components/lottie';
+export type { LottieProps, LottieSource } from './components/lottie';
 export { NavContainer, navContainerVariants } from './components/nav-container';
 export type { NavContainerProps } from './components/nav-container';
 export { NavItem, navItemVariants, navLabelVariants } from './components/nav-item';

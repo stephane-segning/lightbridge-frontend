@@ -9,21 +9,13 @@ const resources = {
       },
       login: {
         title: 'Login',
-        help: 'Help',
         welcome: 'Welcome back',
-        description: 'Access your account quickly and securely using your corporate credentials.',
-        sso: 'Sign in with SSO',
-        ssoLoading: 'Signing in...',
-        footnote:
-          'Authentication is managed through an external identity provider for enhanced security.',
-        trouble: 'Trouble logging in?',
-      },
-      help: {
-        title: 'Help',
-        heading: 'Need help signing in?',
-        description:
-          'Make sure you are using your corporate credentials and have an active account.',
-        contact: 'If you still cannot access the app, contact your administrator or support.',
+        description: "Connect with your organization's SSO provider to continue.",
+        sso: 'Continue with SSO',
+        ssoLoading: 'Opening SSO...',
+        help: 'Help',
+        trouble: 'Trouble signing in?',
+        footnote: 'SSO keeps your account secure across every device.',
       },
       apiKeys: {
         title: 'API Keys',

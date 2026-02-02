@@ -11,15 +11,15 @@
     "@lightbridge/api-native": "workspace:*",
     "@lightbridge/api-rest": "workspace:*",
     "@lightbridge/i18n": "workspace:*",
-    "@react-native-community/netinfo": "^11.4.1",
-    "@tanstack/react-db": "^0.0.25",
-    "@tanstack/react-query": "^5.59.0",
-    "expo-localization": "~17.0.8",
-    "idb-keyval": "^6.2.1",
+    "@react-native-community/netinfo": "^11.5.1",
+    "@tanstack/react-db": "^0.1.69",
+    "@tanstack/react-query": "^5.90.20",
     "expo-auth-session": "~7.0.10",
     "expo-crypto": "~15.0.8",
-    "expo-secure-store": "~14.2.4",
-    "expo-web-browser": "~14.2.0"
+    "expo-localization": "~17.0.8",
+    "expo-secure-store": "~15.0.8",
+    "expo-web-browser": "~15.0.10",
+    "idb-keyval": "^6.2.2"
   },
   "peerDependencies": {
     "react": ">=18",
