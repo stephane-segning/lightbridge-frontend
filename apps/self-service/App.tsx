@@ -6,12 +6,10 @@ import * as WebBrowser from 'expo-web-browser';
 
 import './global.css';
 import { I18nProvider } from '@lightbridge/i18n';
-import { useAuthHydration } from '@lightbridge/hooks';
+import { useAuthHydration, useBackendSync, useLocaleSync } from '@lightbridge/hooks';
 import { AppFont, useAppFonts } from '@lightbridge/ui';
 import { queryClient } from './src/app/query-client';
 import { RootNavigator } from './src/navigation/root-navigator';
-import { useBackendSync } from './src/app/use-backend-sync';
-import { useLocaleSync } from './src/app/use-locale-sync';
 
 WebBrowser.maybeCompleteAuthSession();
 

@@ -6,7 +6,16 @@
     "version": "1.0.0",
 
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "name": "Self Service",
+      "shortName": "Self Service",
+      "description": "Self-service portal",
+      "themeColor": "#ffffff",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": ".",
+      "lang": "en"
     },
 
     "experiments": {

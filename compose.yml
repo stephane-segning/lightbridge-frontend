@@ -1,11 +1,22 @@
 version: '4'
 
 services:
-  keycloak:
-    image: quay.io/keycloak/keycloak:25.0.0
-    command: ["start-dev"]
+  keycloak-26:
+    image: quay.io/keycloak/keycloak:26.4.0
     ports:
-      - "8080:8080"
+      - '13444:13444'
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+      KC_LOG_CONSOLE_COLOR: 'true'
+
+      KC_HTTP_PORT: 13444
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        set -ex
+        #cp /tmp/libs-*/*-all.jar /opt/keycloak/providers # Copy the provider jars to the providers directory
+        /opt/keycloak/bin/kc.sh start-dev --import-realm # Start Keycloak in dev mode and import the realm
+    volumes:
+      - ./.docker/keycloak-config/:/opt/keycloak/data/import/:ro

@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-
-import { listApiKeys, getTokenUsage } from '@lightbridge/api-rest';
-import { setTokenUsage } from '../data/usage-store';
-import { upsertApiKeys } from '../data/api-keys-store';
+import { refreshApiKeys } from '../api-keys';
+import { refreshTokenUsage } from '../usage';
 
 type SyncState = {
   isOnline: boolean;
@@ -21,9 +19,8 @@ export function useBackendSync() {
     setState((prev) => ({ ...prev, isSyncing: true }));
 
     try {
-      const [apiKeys, usage] = await Promise.all([listApiKeys(), getTokenUsage()]);
-      upsertApiKeys(apiKeys);
-      setTokenUsage(usage);
+      await Promise.all([refreshApiKeys(), refreshTokenUsage()]);
+
       setState((prev) => ({
         ...prev,
         lastSyncedAt: Date.now(),

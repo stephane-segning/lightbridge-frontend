@@ -19,7 +19,7 @@ export function useTokenUsage() {
 }
 
 export async function refreshTokenUsage() {
-  const items = await getTokenUsage();
-  setTokenUsage(items);
+  const items = await getTokenUsage<true>();
+  await setTokenUsage(items.data);
   return items;
 }
