@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { useAuthSession } from '@lightbridge/hooks';
 import { LoginScreen } from '../screens/login-screen';
 import { ApiKeysScreen } from '../screens/api-keys-screen';
 import { ApiKeyEditorScreen } from '../screens/api-key-editor-screen';
@@ -13,6 +14,7 @@ const Tab = createBottomTabNavigator<TabParamList>();
 
 export function TabsNavigator() {
   const isDesktop = useIsDesktop();
+  const { isAuthenticated } = useAuthSession();
 
   return (
     <Tab.Navigator
@@ -22,14 +24,19 @@ export function TabsNavigator() {
       }}
       tabBar={(props) => <ResponsiveTabBar {...props} />}
     >
-      <Tab.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }} />
-      <Tab.Screen name="ApiKeys" component={ApiKeysScreen} options={{ title: 'API Keys' }} />
-      <Tab.Screen
-        name="ApiKeyEditor"
-        component={ApiKeyEditorScreen}
-        options={{ title: 'Create Key' }}
-      />
-      <Tab.Screen name="Usage" component={UsageScreen} options={{ title: 'Usage' }} />
+      {isAuthenticated ? (
+        <>
+          <Tab.Screen name="ApiKeys" component={ApiKeysScreen} options={{ title: 'API Keys' }} />
+          <Tab.Screen
+            name="ApiKeyEditor"
+            component={ApiKeyEditorScreen}
+            options={{ title: 'Create Key' }}
+          />
+          <Tab.Screen name="Usage" component={UsageScreen} options={{ title: 'Usage' }} />
+        </>
+      ) : (
+        <Tab.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }} />
+      )}
     </Tab.Navigator>
   );
 }

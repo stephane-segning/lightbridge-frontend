@@ -1,10 +1,16 @@
 import React from 'react';
 
-import { useSsoLogin } from '@lightbridge/hooks';
+import { useAuthSession, useKeycloakLogin } from '@lightbridge/hooks';
+import { keycloakConfig } from '../app/keycloak-config';
 import { LoginView } from '../views/login-view';
 
 export function LoginScreen() {
-  const sso = useSsoLogin();
+  const { isAuthenticated } = useAuthSession();
+  const { promptAsync, isLoading } = useKeycloakLogin(keycloakConfig);
 
-  return <LoginView onSsoPress={() => sso.mutate()} loading={sso.isPending} />;
+  if (isAuthenticated) {
+    return null;
+  }
+
+  return <LoginView onSsoPress={() => promptAsync()} loading={isLoading} />;
 }

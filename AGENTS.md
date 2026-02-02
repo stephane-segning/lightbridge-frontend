@@ -12,11 +12,11 @@ This document describes the working method used to evolve this repository. It is
 
 ## 2) Repository Structure
 
-- `apps/self-service` – Expo app (cross-platform UI)
-- `packages/ui` – UI primitives (RN components with NativeWind, cva, cn)
-- `packages/hooks` – service layer hooks (TanStack Query)
-- `packages/api-rest` – REST API client package (Hey API codegen target)
-- `packages/api-native` – native API wrappers (Linking, Clipboard, etc.)
+- `apps/self-service` - Expo app (cross-platform UI)
+- `packages/ui` - UI primitives (RN components with NativeWind, cva, cn)
+- `packages/hooks` - service layer hooks (TanStack Query)
+- `packages/api-rest` - REST API client package (Hey API codegen target)
+- `packages/api-native` - native API wrappers (Linking, Clipboard, etc.)
 
 ## 3) Architecture: MVC Layering
 

@@ -1,65 +1,57 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMemo } from 'react';
+import { useLiveQuery } from '@tanstack/react-db';
 
 import type { ApiKey, CreateApiKeyInput, UpdateApiKeyInput } from '@lightbridge/api-rest';
-import {
-  createApiKey,
-  deleteApiKey,
-  getApiKey,
-  listApiKeys,
-  updateApiKey,
-} from '@lightbridge/api-rest';
-
-const apiKeysKey = ['api-keys'] as const;
+import { createApiKey, deleteApiKey, listApiKeys, updateApiKey } from '@lightbridge/api-rest';
+import { apiKeysCollection, removeApiKey, upsertApiKey, upsertApiKeys } from './data/api-keys-store';
 
 export function useApiKeys() {
-  return useQuery({
-    queryKey: apiKeysKey,
-    queryFn: listApiKeys,
-  });
+  const { data } = useLiveQuery((q) => q.from({ apiKeys: apiKeysCollection }));
+
+  const items = useMemo<ApiKey[]>(() => {
+    if (Array.isArray(data)) {
+      return data as ApiKey[];
+    }
+    return [];
+  }, [data]);
+
+  return { data: items };
 }
 
-export function useApiKey(id: string | null) {
-  return useQuery({
-    queryKey: ['api-key', id],
-    queryFn: () => (id ? getApiKey(id) : Promise.resolve(null)),
-  });
+export async function refreshApiKeys() {
+  const items = await listApiKeys();
+  upsertApiKeys(items);
+  return items;
 }
 
 export function useCreateApiKey() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (input: CreateApiKeyInput) => createApiKey(input),
-    onSuccess: (next: ApiKey) => {
-      queryClient.setQueryData<ApiKey[]>(apiKeysKey, (prev) => [next, ...(prev ?? [])]);
+  return {
+    isPending: false,
+    mutate: async (input: CreateApiKeyInput) => {
+      const next = await createApiKey(input);
+      upsertApiKey(next);
+      return next;
     },
-  });
+  };
 }
 
 export function useUpdateApiKey() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({ id, input }: { id: string; input: UpdateApiKeyInput }) =>
-      updateApiKey(id, input),
-    onSuccess: (updated) => {
-      queryClient.setQueryData<ApiKey[]>(apiKeysKey, (prev) =>
-        (prev ?? []).map((item) => (item.id === updated.id ? updated : item))
-      );
-      queryClient.setQueryData(['api-key', updated.id], updated);
+  return {
+    isPending: false,
+    mutate: async ({ id, input }: { id: string; input: UpdateApiKeyInput }) => {
+      const updated = await updateApiKey(id, input);
+      upsertApiKey(updated);
+      return updated;
     },
-  });
+  };
 }
 
 export function useDeleteApiKey() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (id: string) => deleteApiKey(id),
-    onSuccess: (_result, id) => {
-      queryClient.setQueryData<ApiKey[]>(apiKeysKey, (prev) =>
-        (prev ?? []).filter((item) => item.id !== id)
-      );
+  return {
+    isPending: false,
+    mutateAsync: async (id: string) => {
+      await deleteApiKey(id);
+      removeApiKey(id);
     },
-  });
+  };
 }
