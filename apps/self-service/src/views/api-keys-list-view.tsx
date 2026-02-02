@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Card, Stack, Text } from '@lightbridge/ui';
 import { ScreenShell } from './screen-shell';
@@ -15,12 +16,14 @@ export function ApiKeysListView({
   onEdit: (id: string) => void;
   onDelete: (id: string, name: string) => void;
 }) {
+  const { t } = useTranslation();
+
   return (
-    <ScreenShell title="API Keys">
+    <ScreenShell title={t('apiKeys.title')}>
       <Stack direction="row" align="center" justify="between">
-        <Text intent="body">Manage keys used by your services.</Text>
+        <Text intent="body">{t('apiKeys.subtitle')}</Text>
         <Button size="sm" onPress={onCreate}>
-          New key
+          {t('apiKeys.new')}
         </Button>
       </Stack>
       <Stack gap="sm">
@@ -31,10 +34,10 @@ export function ApiKeysListView({
               <Text intent="key">{item.key}</Text>
               <Stack direction="row" gap="sm">
                 <Button size="sm" variant="ghost" onPress={() => onEdit(item.id)}>
-                  Edit
+                  {t('apiKeys.edit')}
                 </Button>
                 <Button size="sm" variant="ghost" onPress={() => onDelete(item.id, item.name)}>
-                  Delete
+                  {t('apiKeys.delete')}
                 </Button>
               </Stack>
             </Stack>

@@ -7,6 +7,7 @@ This document describes the working method used to evolve this repository. It is
 - **Monorepo first**: everything lives under `apps/` and `packages/`. Root contains only workspace tooling.
 - **UI-only in app pages**: app screens and views must not import from `react-native` directly. Use UI primitives from `@lightbridge/ui` instead.
 - **All classnames inside UI**: Tailwind classes live only inside UI components via `cva` + `cn`. App pages pass variant props, never raw className strings.
+- **No plain visible text**: any user-visible text must come from `i18n` using `t('key')`. Literal strings are allowed only for internal labels, logs, or non-UI constants.
 - **Kebab-case filenames**: all new files (TS/TSX/JS/JSON/etc.) must be kebab-case. Only keep conventional exceptions (e.g., `App.tsx`).
 - **ASCII only**: avoid non-ASCII characters unless the file already uses them.
 
@@ -17,6 +18,7 @@ This document describes the working method used to evolve this repository. It is
 - `packages/hooks` - service layer hooks (TanStack Query)
 - `packages/api-rest` - REST API client package (Hey API codegen target)
 - `packages/api-native` - native API wrappers (Linking, Clipboard, etc.)
+- `packages/i18n` - centralized i18n config and translations
 
 ## 3) Architecture: MVC Layering
 
@@ -25,15 +27,21 @@ This document describes the working method used to evolve this repository. It is
 - Only composes UI primitives from `@lightbridge/ui`.
 - No direct `react-native` imports in view/screen components.
 - No raw className strings in views/screens.
+- No literal user-visible strings; always use `t('...')`.
 
 ### Service Layer (Hooks)
 - Lives in `packages/hooks`.
 - Uses TanStack Query for cache, mutations, and optimistic updates.
 - Exposes hooks consumed by screens (e.g., `useApiKeys`, `useTokenUsage`).
+- Owns TanStack DB collections and backend sync logic.
 
 ### API Layer
 - `packages/api-rest`: generated REST client via Hey API (OpenAPI)
 - `packages/api-native`: native device/system capabilities, via Expo or RN APIs
+
+### i18n Layer
+- `packages/i18n`: i18n initialization and translation resources.
+- App uses `I18nProvider` and `useTranslation()` for all visible text.
 
 ## 4) UI Component Design Rules
 
@@ -52,6 +60,7 @@ This document describes the working method used to evolve this repository. It is
   - sticky side navigation for large screens
 - Navigation composition lives in `apps/self-service/src/navigation`.
 - Any layout or styling is done through UI primitives.
+- Screen titles and tab labels must be translated.
 
 ## 6) Naming and File Conventions
 
@@ -65,12 +74,15 @@ This document describes the working method used to evolve this repository. It is
 - Root `package.json` owns tooling (eslint/prettier/typescript).
 - Each workspace package declares its own runtime dependencies.
 - Use `workspace:*` for internal package dependencies.
+- API client code is generated via `packages/api-rest` (OpenAPI + Hey API).
 
 ## 8) Tooling Expectations
 
 - ESLint + Prettier at root.
 - Tailwind config per app, with content paths including `packages/ui`.
 - Metro configured to resolve workspace packages.
+- i18n configuration centralized in `packages/i18n`.
+- Auth persistence: `expo-secure-store` on native, IndexedDB on web.
 
 ## 9) Change Checklist
 
@@ -78,6 +90,7 @@ Before finalizing changes:
 
 - [ ] No `react-native` imports in app views/screens.
 - [ ] No `className` props in app views/screens.
+- [ ] No literal user-visible strings in views/screens/navigation.
 - [ ] New files are kebab-case.
 - [ ] UI components use `cva` + `cn`.
 - [ ] Hooks live in `packages/hooks`.

@@ -1,3 +1,4 @@
+import * as Clipboard from 'expo-clipboard';
 import { Linking, Platform } from 'react-native';
 
 export async function openExternalUrl(url: string) {
@@ -15,6 +16,5 @@ export async function copyToClipboard(value: string) {
     return;
   }
 
-  // TODO: Replace with expo-clipboard or @react-native-clipboard/clipboard.
-  console.warn('Clipboard API not configured for native. Value:', value);
+  await Clipboard.setStringAsync(value);
 }

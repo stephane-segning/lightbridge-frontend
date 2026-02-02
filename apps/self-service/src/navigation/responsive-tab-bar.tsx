@@ -3,9 +3,11 @@ import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 import { NavContainer, NavItem, Stack, Text } from '@lightbridge/ui';
 import { useIsDesktop } from './use-is-desktop';
+import { useTranslation } from 'react-i18next';
 
 export function ResponsiveTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const isDesktop = useIsDesktop();
+  const { t } = useTranslation();
 
   const getLabel = (routeKey: string, routeName: string) => {
     const options = descriptors[routeKey]?.options;
@@ -22,7 +24,7 @@ export function ResponsiveTabBar({ state, descriptors, navigation }: BottomTabBa
     return (
       <NavContainer placement="sidebar">
         <Stack gap="md" flex="grow">
-          <Text intent="eyebrow">Self-Service</Text>
+          <Text intent="eyebrow">{t('app.brand')}</Text>
           <Stack gap="sm" flex="grow">
             {state.routes.map((route, index) => {
               const label = getLabel(route.key, route.name);
