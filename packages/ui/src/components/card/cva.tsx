@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const cardVariants = cva('rounded-2xl border border-neutral-200 bg-white', {
+export const cardVariants = cva('rounded-2xl bg-white shadow-sm', {
   variants: {
     size: {
       sm: 'p-4',

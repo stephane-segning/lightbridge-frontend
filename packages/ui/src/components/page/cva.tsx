@@ -1,14 +1,21 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const pageVariants = cva('flex-1 px-6 py-8', {
+export const pageVariants = cva('flex-1', {
   variants: {
     tone: {
-      muted: 'bg-neutral-50',
+      muted: 'bg-[#f7f7f8]',
       surface: 'bg-white',
+    },
+    pad: {
+      none: '',
+      sm: 'p-4',
+      md: 'p-6',
+      lg: 'p-8',
     },
   },
   defaultVariants: {
     tone: 'muted',
+    pad: 'md',
   },
 });
 

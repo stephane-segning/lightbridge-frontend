@@ -27,5 +27,18 @@
         }
       ]
     }
+  ],
+  "clients": [
+    {
+      "clientId": "self-service",
+      "rootUrl": "http://localhost:8081",
+      "adminUrl": "http://localhost:8081",
+      "redirectUris": ["http://localhost:8081/*"],
+      "webOrigins": ["+"],
+      "bearerOnly": false,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "attributes": {}
+    }
   ]
 }

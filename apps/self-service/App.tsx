@@ -10,12 +10,20 @@ import { useAuthHydration, useBackendSync, useLocaleSync } from '@lightbridge/ho
 import { AppFont, useAppFonts } from '@lightbridge/ui';
 import { queryClient } from './src/app/query-client';
 import { RootNavigator } from './src/navigation/root-navigator';
+import { useClientInit } from '@lightbridge/api-rest';
 
 WebBrowser.maybeCompleteAuthSession();
 
 enableScreens();
 
 export default function App() {
+  useClientInit({
+    baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
+    auth: async (_a) => {
+      return '<token />';
+    },
+  });
+
   const fontsLoaded = useAppFonts([AppFont.MontserratRegular, AppFont.MontserratSemiBold]);
   useAuthHydration();
   useBackendSync();

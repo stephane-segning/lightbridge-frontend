@@ -8,10 +8,24 @@ import type { DivProps } from './types';
 
 const ViewBase = View as React.ComponentType<ViewProps & { className?: string }>;
 
-export function Div({ pad, tone, rounded, ...props }: DivProps) {
+export function Div({
+  pad,
+  tone,
+  rounded,
+  shadow,
+  size,
+  width,
+  maxWidth,
+  self,
+  align,
+  justify,
+  ...props
+}: DivProps) {
   return (
     <ViewBase
-      className={cn(divVariants({ pad, tone, rounded }))}
+      className={cn(
+        divVariants({ pad, tone, rounded, shadow, size, width, maxWidth, self, align, justify })
+      )}
       {...props}
     />
   );
