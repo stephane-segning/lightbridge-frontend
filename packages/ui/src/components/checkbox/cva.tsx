@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const checkboxVariants = cva('border border-neutral-300 bg-white', {
+export const checkboxVariants = cva('border border-border bg-surface', {
   variants: {
     size: {
       sm: 'h-4 w-4 rounded-[3px]',
@@ -8,8 +8,8 @@ export const checkboxVariants = cva('border border-neutral-300 bg-white', {
       lg: 'h-6 w-6 rounded-[5px]',
     },
     checked: {
-      true: 'border-neutral-900',
-      false: 'border-neutral-300',
+      true: 'border-ink',
+      false: 'border-border',
     },
     disabled: {
       true: 'opacity-50',

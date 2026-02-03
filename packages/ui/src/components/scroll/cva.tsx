@@ -3,8 +3,8 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const scrollVariants = cva('flex-1', {
   variants: {
     tone: {
-      muted: 'bg-[#f7f7f8]',
-      surface: 'bg-white',
+      muted: 'bg-muted',
+      surface: 'bg-surface',
     },
   },
   defaultVariants: {

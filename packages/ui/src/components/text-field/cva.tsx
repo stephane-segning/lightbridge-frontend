@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const textFieldVariants = cva(
-  'rounded-xl border border-neutral-200 px-3 py-2 text-base text-neutral-900',
+  'rounded-xl border border-border px-3 py-2 text-base text-ink',
   {
     variants: {
       size: {

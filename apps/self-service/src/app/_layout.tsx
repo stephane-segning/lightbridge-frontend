@@ -15,7 +15,7 @@ import {
   useBackendSync,
   useLocaleSync,
 } from '@lightbridge/hooks';
-import { AppFont, useAppFonts } from '@lightbridge/ui';
+import { AppFont, Div, useAppFonts } from '@lightbridge/ui';
 import { queryClient } from '@app/queries';
 import { useClientInit } from '@lightbridge/api-rest';
 import { RuntimeConfigProvider, useRuntimeConfig } from '@app/configs/runtime-config';
@@ -47,7 +47,6 @@ function AppBootstrap() {
 
   useEffect(() => {
     if (!isHydrated) {
-      console.log('[router] wait for hydration');
       return;
     }
 
@@ -59,14 +58,6 @@ function AppBootstrap() {
       first === 'login';
     const inHelpRoute =
       pathname === '/help' || pathname?.startsWith('/help/') || segments.includes('help');
-
-    console.log('[router] guard', {
-      pathname,
-      segments,
-      isAuthenticated,
-      inAuthGroup,
-      inHelpRoute,
-    });
 
     if (!isAuthenticated && !inAuthGroup && !inHelpRoute) {
       router.replace('/login');

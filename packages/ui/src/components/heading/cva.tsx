@@ -1,10 +1,10 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const headingVariants = cva('text-[#111827]', {
+export const headingVariants = cva('text-ink', {
   variants: {
     tone: {
       title: 'text-2xl',
-      subtitle: 'text-base text-[#6b7280]',
+      subtitle: 'text-base text-soft',
     },
     align: {
       left: 'text-left',

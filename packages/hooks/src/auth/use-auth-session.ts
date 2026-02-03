@@ -19,14 +19,6 @@ export function useAuthSession() {
     session.tokens?.accessToken || session.tokens?.idToken || session.tokens?.refreshToken
   );
 
-  console.log('[auth] session snapshot', {
-    hasData: Array.isArray(data) ? data.length : 0,
-    hasAccess: Boolean(session.tokens?.accessToken),
-    hasId: Boolean(session.tokens?.idToken),
-    hasRefresh: Boolean(session.tokens?.refreshToken),
-    isAuthenticated,
-  });
-
   return { session, isAuthenticated };
 }
 
@@ -37,15 +29,8 @@ export function useAuthHydration() {
     let isMounted = true;
 
     const hydrate = async () => {
-      console.log('[auth] hydrate start');
       try {
         const stored = await loadStoredSession();
-        console.log('[auth] hydrate loaded', {
-          hasStored: Boolean(stored),
-          hasAccess: Boolean(stored?.tokens?.accessToken),
-          hasId: Boolean(stored?.tokens?.idToken),
-          hasRefresh: Boolean(stored?.tokens?.refreshToken),
-        });
         const hasTokens = Boolean(
           stored?.tokens?.accessToken ||
             stored?.tokens?.idToken ||
@@ -54,15 +39,12 @@ export function useAuthHydration() {
 
         if (stored && hasTokens) {
           setAuthSession(stored);
-          console.log('[auth] hydrate applied');
         } else {
           clearAuthSession();
-          console.log('[auth] hydrate cleared');
         }
       } finally {
         if (isMounted) {
           setIsHydrated(true);
-          console.log('[auth] hydrate complete');
         }
       }
     };

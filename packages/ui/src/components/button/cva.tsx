@@ -3,10 +3,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const buttonVariants = cva('flex-row items-center justify-center', {
   variants: {
     variant: {
-      primary: 'bg-[#1d5bff] shadow-md',
+      primary: 'bg-primary shadow-md',
       ghost: 'bg-transparent',
-      neutral: 'bg-white shadow-sm',
-      icon: 'bg-[#111827]',
+      neutral: 'bg-surface shadow-sm',
+      icon: 'bg-ink',
     },
     size: {
       sm: 'h-9 px-4 rounded-xl',
@@ -34,10 +34,10 @@ export const buttonVariants = cva('flex-row items-center justify-center', {
 export const buttonTextVariants = cva('font-semibold', {
   variants: {
     variant: {
-      primary: 'text-white',
-      ghost: 'text-[#1d5bff]',
-      neutral: 'text-[#111827]',
-      icon: 'text-white',
+      primary: 'text-surface',
+      ghost: 'text-primary',
+      neutral: 'text-ink',
+      icon: 'text-surface',
     },
     size: {
       sm: 'text-sm',

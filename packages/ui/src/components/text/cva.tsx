@@ -1,22 +1,22 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export const textVariants = cva('text-[#111827]', {
+export const textVariants = cva('text-ink', {
   variants: {
     intent: {
-      eyebrow: 'text-xs uppercase tracking-[0.28em] text-[#9ca3af]',
-      title: 'text-2xl font-semibold text-[#111827]',
-      body: 'text-base text-[#6b7280]',
-      bodyStrong: 'text-base font-semibold text-[#111827]',
-      key: 'text-sm text-[#9ca3af]',
-      value: 'text-2xl font-semibold text-[#111827]',
-      caption: 'text-sm text-[#9ca3af]',
-      link: 'text-sm font-semibold text-[#1d5bff]',
-      inverseEyebrow: 'text-xs uppercase tracking-[0.28em] text-white/70',
-      inverseTitle: 'text-2xl font-semibold text-white',
-      inverseBody: 'text-base text-white',
-      inverseBodyStrong: 'text-base font-semibold text-white',
-      inverseValue: 'text-3xl font-semibold text-white',
-      inverseCaption: 'text-sm text-white/80',
+      eyebrow: 'text-xs uppercase tracking-[0.28em] text-subtle',
+      title: 'text-2xl font-semibold text-ink',
+      body: 'text-base text-soft',
+      bodyStrong: 'text-base font-semibold text-ink',
+      key: 'text-sm text-subtle',
+      value: 'text-2xl font-semibold text-ink',
+      caption: 'text-sm text-subtle',
+      link: 'text-sm font-semibold text-primary',
+      inverseEyebrow: 'text-xs uppercase tracking-[0.28em] text-surface/70',
+      inverseTitle: 'text-2xl font-semibold text-surface',
+      inverseBody: 'text-base text-surface',
+      inverseBodyStrong: 'text-base font-semibold text-surface',
+      inverseValue: 'text-3xl font-semibold text-surface',
+      inverseCaption: 'text-sm text-surface/80',
     },
     align: {
       left: 'text-left',

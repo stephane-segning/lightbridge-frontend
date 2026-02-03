@@ -7,6 +7,7 @@ This document describes the working method used to evolve this repository. It is
 - **Monorepo first**: everything lives under `apps/` and `packages/`. Root contains only workspace tooling.
 - **UI-only in app pages**: app screens and views must not import from `react-native` directly. Use UI primitives from `@lightbridge/ui` instead.
 - **All classnames inside UI**: Tailwind classes live only inside UI components via `cva` + `cn`. App pages pass variant props, never raw className strings.
+- **Theme tokens only**: never use hardcoded colors in classnames (`bg-[#...]`, `text-[#...]`, `bg-white`, `text-white`, etc.). Use semantic tokens from Tailwind theme (primary/secondary/accent/error/success + ink/soft/subtle/muted/surface/border).
 - **No plain visible text**: any user-visible text must come from `i18n` using `t('key')`. Literal strings are allowed only for internal labels, logs, or non-UI constants.
 - **Kebab-case filenames**: all new files (TS/TSX/JS/JSON/etc.) must be kebab-case. Only keep conventional exceptions (e.g., `App.tsx`).
 - **ASCII only**: avoid non-ASCII characters unless the file already uses them.
@@ -55,6 +56,7 @@ This document describes the working method used to evolve this repository. It is
   - `component.tsx` for implementation
   - `index.tsx` for exports
 - Classnames are defined only in `cva.tsx` and combined with `cn` in `component.tsx`.
+- Color classnames must use theme tokens (no hardcoded hex/rgb).
 - App-level components use **variants**, not className.
 
 ## 5) Navigation Rules
@@ -84,6 +86,7 @@ This document describes the working method used to evolve this repository. It is
 
 - ESLint + Prettier at root.
 - Tailwind config per app, with content paths including `packages/ui`.
+- Tailwind colors are defined via CSS variable RGB tokens to enable light/dark themes.
 - Metro configured to resolve workspace packages.
 - i18n configuration centralized in `packages/i18n`.
 - Auth persistence: `expo-secure-store` on native, IndexedDB on web.
@@ -95,6 +98,7 @@ Before finalizing changes:
 - [ ] No `react-native` imports in app views/screens.
 - [ ] No `className` props in app views/screens.
 - [ ] No literal user-visible strings in views/screens/navigation.
+- [ ] No hardcoded colors in classnames; only theme tokens.
 - [ ] New files are kebab-case.
 - [ ] UI components use `cva` + `cn`.
 - [ ] Hooks live in `packages/hooks`.

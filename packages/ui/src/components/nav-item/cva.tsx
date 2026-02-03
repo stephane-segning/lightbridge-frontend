@@ -12,9 +12,9 @@ export const navItemVariants = cva('', {
     },
   },
   compoundVariants: [
-    { placement: 'sidebar', active: true, className: 'bg-black' },
+    { placement: 'sidebar', active: true, className: 'bg-ink' },
     { placement: 'sidebar', active: false, className: 'bg-transparent' },
-    { placement: 'bottom', active: true, className: 'rounded-full bg-black' },
+    { placement: 'bottom', active: true, className: 'rounded-full bg-ink' },
     { placement: 'bottom', active: false, className: '' },
   ],
   defaultVariants: {
@@ -35,10 +35,10 @@ export const navLabelVariants = cva('text-sm', {
     },
   },
   compoundVariants: [
-    { placement: 'sidebar', active: true, className: 'text-white' },
-    { placement: 'sidebar', active: false, className: 'text-neutral-700' },
-    { placement: 'bottom', active: true, className: 'text-white' },
-    { placement: 'bottom', active: false, className: 'text-neutral-600' },
+    { placement: 'sidebar', active: true, className: 'text-surface' },
+    { placement: 'sidebar', active: false, className: 'text-soft' },
+    { placement: 'bottom', active: true, className: 'text-surface' },
+    { placement: 'bottom', active: false, className: 'text-subtle' },
   ],
   defaultVariants: {
     placement: 'bottom',
