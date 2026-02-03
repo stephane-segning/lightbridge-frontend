@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRouter } from 'expo-router';
 import { useApiKeys } from '@lightbridge/hooks';
+import { copyToClipboard } from '@lightbridge/api-native';
 import { ApiKeysListView } from '../views/api-keys-list-view';
 
 export function ApiKeysScreen() {
@@ -10,9 +11,9 @@ export function ApiKeysScreen() {
   return (
     <ApiKeysListView
       items={data}
+      onBack={() => router.back()}
       onCreate={() => router.push('/api-key-editor')}
-      onEdit={(id) => router.push({ pathname: '/api-key-editor', params: { id } })}
-      onDelete={(id, name) => router.push({ pathname: '/delete-api-key', params: { id, name } })}
+      onCopy={(value) => copyToClipboard(value)}
     />
   );
 }

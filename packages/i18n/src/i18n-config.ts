@@ -22,7 +22,7 @@ const resources = {
       },
       apiKeys: {
         title: 'API Keys',
-        subtitle: 'Manage keys used by your services.',
+        subtitle: 'Manage your secret keys to authenticate your API requests.',
         new: 'New key',
         edit: 'Edit',
         delete: 'Delete',
@@ -31,6 +31,11 @@ const resources = {
         save: 'Save key',
         saving: 'Saving...',
         createTitle: 'Create or Update',
+        back: 'Go back',
+        copy: 'Copy API key',
+        createdOn: 'Created on {{date}}',
+        securityNote:
+          'Keep your API keys secure. Never share them in publicly accessible areas such as GitHub or client-side code.',
       },
       usage: {
         title: 'Token Usage',

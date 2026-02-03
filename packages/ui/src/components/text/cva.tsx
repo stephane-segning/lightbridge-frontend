@@ -11,6 +11,7 @@ export const textVariants = cva('text-ink', {
       value: 'text-2xl font-semibold text-ink',
       caption: 'text-sm text-subtle',
       link: 'text-sm font-semibold text-primary',
+      warning: 'text-sm text-secondary',
       inverseEyebrow: 'text-xs uppercase tracking-[0.28em] text-surface/70',
       inverseTitle: 'text-2xl font-semibold text-surface',
       inverseBody: 'text-base text-surface',
