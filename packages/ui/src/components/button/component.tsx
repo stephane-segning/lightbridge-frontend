@@ -13,6 +13,7 @@ const TextBase = Text as React.ComponentType<TextProps & { className?: string }>
 export function Button({
   textProps,
   variant,
+  shape,
   size,
   width,
   disabled,
@@ -27,7 +28,7 @@ export function Button({
     <PressableBase
       accessibilityRole="button"
       disabled={resolvedDisabled}
-      className={cn(buttonVariants({ variant, size, width, disabled: resolvedDisabled }))}
+      className={cn(buttonVariants({ variant, shape, size, width, disabled: resolvedDisabled }))}
       {...props}
     >
       <TextBase className={cn(buttonTextVariants({ variant, size }))} {...textProps} style={textStyle}>

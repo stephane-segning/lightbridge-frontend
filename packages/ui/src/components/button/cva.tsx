@@ -8,6 +8,10 @@ export const buttonVariants = cva('flex-row items-center justify-center', {
       neutral: 'bg-surface shadow-sm',
       icon: 'bg-ink',
     },
+    shape: {
+      none: '',
+      circle: 'rounded-full',
+    },
     size: {
       sm: 'h-9 px-4 rounded-xl',
       md: 'h-10 px-4 rounded-xl',
@@ -26,6 +30,7 @@ export const buttonVariants = cva('flex-row items-center justify-center', {
   },
   defaultVariants: {
     variant: 'primary',
+    shape: 'none',
     size: 'md',
     width: 'auto',
   },

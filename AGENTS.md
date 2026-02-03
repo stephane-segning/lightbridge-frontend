@@ -1,4 +1,4 @@
-# Work Method (Codex Agent)
+# Work Method
 
 This document describes the working method used to evolve this repository. It is intended to keep contributions consistent, predictable, and aligned with the project's architecture and conventions.
 
