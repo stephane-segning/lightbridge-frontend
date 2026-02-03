@@ -6,6 +6,9 @@ const resources = {
     translation: {
       app: {
         brand: 'Self-Service',
+        splash: {
+          loading: 'Loading your workspace...',
+        },
       },
       login: {
         title: 'Login',

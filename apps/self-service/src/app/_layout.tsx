@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
+import * as SplashScreen from 'expo-splash-screen';
+import { Platform } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -16,14 +18,18 @@ import {
 import { AppFont, useAppFonts } from '@lightbridge/ui';
 import { queryClient } from '@app/queries';
 import { useClientInit } from '@lightbridge/api-rest';
-import { apiConfig } from '@app/configs/api-config';
+import { RuntimeConfigProvider, useRuntimeConfig } from '@app/configs/runtime-config';
+import { AppSplashView } from '@app/views/app-splash-view';
 
 WebBrowser.maybeCompleteAuthSession();
 enableScreens();
+void SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function AppBootstrap() {
+  const runtimeConfig = useRuntimeConfig();
+
   useClientInit({
-    baseURL: apiConfig.backendUrl,
+    baseURL: runtimeConfig.backendUrl,
     auth: async (_a) => {
       return '<token />';
     },
@@ -31,7 +37,6 @@ export default function RootLayout() {
 
   const { isAuthenticated } = useAuthSession();
   const { isHydrated } = useAuthHydration();
-  const fontsLoaded = useAppFonts([AppFont.MontserratRegular, AppFont.MontserratSemiBold]);
 
   useBackendSync();
   useLocaleSync();
@@ -58,16 +63,32 @@ export default function RootLayout() {
     }
   }, [isAuthenticated, isHydrated, router, segments]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }} />
+      <StatusBar style="auto" />
+    </>
+  );
+}
+
+export default function RootLayout() {
+  const fontsLoaded = useAppFonts([AppFont.MontserratRegular, AppFont.MontserratSemiBold]);
+  const [runtimeReady, setRuntimeReady] = useState(false);
+  const webFallback = Platform.OS === 'web' ? <AppSplashView /> : null;
+
+  useEffect(() => {
+    if (fontsLoaded && runtimeReady) {
+      void SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, runtimeReady]);
 
   return (
     <I18nProvider>
-      <QueryClientProvider client={queryClient}>
-        <Stack screenOptions={{ headerShown: false }} />
-        <StatusBar style="auto" />
-      </QueryClientProvider>
+      <RuntimeConfigProvider fallback={webFallback} onReady={() => setRuntimeReady(true)}>
+        <QueryClientProvider client={queryClient}>
+          {fontsLoaded ? <AppBootstrap /> : webFallback}
+        </QueryClientProvider>
+      </RuntimeConfigProvider>
     </I18nProvider>
   );
 }

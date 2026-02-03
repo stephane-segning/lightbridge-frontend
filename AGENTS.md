@@ -15,7 +15,7 @@ This document describes the working method used to evolve this repository. It is
 
 - `apps/self-service` - Expo app (cross-platform UI)
 - `apps/self-service/src/app` - Expo Router routes and layouts (file-based routing)
-- `apps/self-service/src/configs` - app-level configs (query client, auth config)
+- `apps/self-service/src/configs` - app-level configs (runtime config, query client, auth config)
 - `packages/ui` - UI primitives (RN components with NativeWind, cva, cn)
 - `packages/hooks` - service layer hooks (TanStack Query)
 - `packages/api-rest` - REST API client package (Hey API codegen target)
@@ -45,6 +45,7 @@ This document describes the working method used to evolve this repository. It is
 ### i18n Layer
 - `packages/i18n`: i18n initialization and translation resources.
 - App uses `I18nProvider` and `useTranslation()` for all visible text.
+- `I18nProvider` must initialize i18n before any `useTranslation()` calls (including splash/fallback UI).
 
 ## 4) UI Component Design Rules
 
@@ -99,3 +100,31 @@ Before finalizing changes:
 - [ ] Hooks live in `packages/hooks`.
 - [ ] API logic is in `packages/api-rest` or `packages/api-native`.
 - [ ] Routes live in `apps/self-service/src/app`.
+
+## 10) Runtime Config (Web)
+
+- Runtime config is loaded in `apps/self-service/src/configs/runtime-config.tsx`.
+- Web production reads `/config.json` at runtime; native and dev use `EXPO_PUBLIC_*` env vars.
+- Keep `apps/self-service/example.config.json` as the deploy template. Place the real
+  `config.json` next to `dist/index.html` (same URL origin).
+- Serve `config.json` with `no-store` or a short TTL; keep JS bundles immutable.
+- Native splash screen stays up until fonts and runtime config are ready.
+
+## 11) Data and Persistence
+
+This repo uses TanStack Query and TanStack React DB together, but nothing is persisted unless explicitly wired.
+
+### React DB collections
+
+- `localOnlyCollectionOptions` collections are in-memory collections (good for local app state and as a normalized in-app cache).
+- Collections do not persist to disk by default. If you need persistence, add it explicitly (for example, by writing state to storage on change and hydrating on boot).
+
+### Query-backed collections (`queryCollectionOptions`)
+
+- `queryCollectionOptions` wires a collection to a fetch/query function, but it still does not automatically persist to disk.
+- Use `onInsert/onUpdate/onDelete` only when you intentionally want collection-driven CRUD (often for optimistic UI and/or offline queuing). For sensitive, server-authoritative resources (like API keys), prefer API-first writes unless you have a clear rollback/error strategy.
+
+### What is persisted today
+
+- Auth session is explicitly persisted: SecureStore on native and IndexedDB on web (`packages/hooks/src/auth/auth-storage.ts`).
+- React Query cache is not currently persisted (`apps/self-service/src/queries/query-client.ts`).

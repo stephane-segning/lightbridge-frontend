@@ -2,12 +2,13 @@ import React from 'react';
 
 import { useRouter } from 'expo-router';
 import { useAuthSession, useKeycloakLogin } from '@lightbridge/hooks';
-import { keycloakConfig } from '../configs/keycloak-config';
+import { useRuntimeConfig } from '@app/configs/runtime-config';
 import { LoginView } from '../views/login-view';
 
 export function LoginScreen() {
   const { isAuthenticated } = useAuthSession();
-  const { promptAsync, isLoading } = useKeycloakLogin(keycloakConfig);
+  const runtimeConfig = useRuntimeConfig();
+  const { promptAsync, isLoading } = useKeycloakLogin(runtimeConfig.keycloak);
   const router = useRouter();
 
   if (isAuthenticated) {
