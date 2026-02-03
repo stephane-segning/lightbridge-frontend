@@ -19,5 +19,7 @@ export const localeCollection = createCollection(
 );
 
 export function setLocaleState(locale: string) {
-  localeCollection.update('current', () => ({ id: 'current', locale }));
+  localeCollection.update('current', (draft) => {
+    draft.locale = locale;
+  });
 }

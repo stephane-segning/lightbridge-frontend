@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -43,15 +43,30 @@ function AppBootstrap() {
 
   const segments = useSegments();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isHydrated) {
+      console.log('[router] wait for hydration');
       return;
     }
 
     const [first] = segments;
-    const inAuthGroup = first === '(auth)';
-    const inHelpRoute = first === 'help';
+    const inAuthGroup =
+      pathname === '/login' ||
+      pathname?.startsWith('/login/') ||
+      segments.includes('(auth)') ||
+      first === 'login';
+    const inHelpRoute =
+      pathname === '/help' || pathname?.startsWith('/help/') || segments.includes('help');
+
+    console.log('[router] guard', {
+      pathname,
+      segments,
+      isAuthenticated,
+      inAuthGroup,
+      inHelpRoute,
+    });
 
     if (!isAuthenticated && !inAuthGroup && !inHelpRoute) {
       router.replace('/login');

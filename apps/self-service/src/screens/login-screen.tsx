@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { useAuthSession, useKeycloakLogin } from '@lightbridge/hooks';
 import { useRuntimeConfig } from '@app/configs/runtime-config';
 import { LoginView } from '../views/login-view';
@@ -12,7 +12,7 @@ export function LoginScreen() {
   const router = useRouter();
 
   if (isAuthenticated) {
-    return null;
+    return <Redirect href="/api-keys" />;
   }
 
   return (

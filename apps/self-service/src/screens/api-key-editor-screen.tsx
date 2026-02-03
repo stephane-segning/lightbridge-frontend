@@ -12,20 +12,24 @@ export function ApiKeyEditorScreen() {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    if (data?.name) {
+    if (apiKeyId && data?.name) {
       setName(data.name);
+      return;
     }
-  }, [data?.name]);
+    if (!apiKeyId) {
+      setName('');
+    }
+  }, [apiKeyId, data?.name]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!name.trim()) {
       return;
     }
 
     if (apiKeyId) {
-      updateKey.mutate({ id: apiKeyId, input: { name } });
+      await updateKey.mutate({ id: apiKeyId, input: { name } });
     } else {
-      createKey.mutate({ name });
+      await createKey.mutate({ name });
       setName('');
     }
   };

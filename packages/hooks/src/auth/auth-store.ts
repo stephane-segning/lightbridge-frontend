@@ -17,13 +17,21 @@ export const authSessionCollection = createCollection(
 );
 
 export function setAuthSession(next: AuthSession) {
-  authSessionCollection.update('current', () => next);
+  console.log('[auth-store] set session', {
+    hasAccess: Boolean(next.tokens?.accessToken),
+    hasId: Boolean(next.tokens?.idToken),
+    hasRefresh: Boolean(next.tokens?.refreshToken),
+    hasUser: Boolean(next.user),
+  });
+  authSessionCollection.update('current', (draft) => {
+    Object.assign(draft, next);
+  });
 }
 
 export function clearAuthSession() {
-  authSessionCollection.update('current', (draft) => ({
-    ...draft,
-    user: null,
-    tokens: null,
-  }));
+  console.log('[auth-store] clear session');
+  authSessionCollection.update('current', (draft) => {
+    draft.user = null;
+    draft.tokens = null;
+  });
 }
