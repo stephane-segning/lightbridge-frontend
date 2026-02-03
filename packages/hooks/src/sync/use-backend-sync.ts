@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import { refreshApiKeys } from '../api-keys';
+import { useQueryClient } from '@tanstack/react-query';
+import { apiKeysQueryKey } from '../api-keys';
 import { refreshTokenUsage } from '../usage';
 
 type SyncState = {
@@ -10,6 +11,7 @@ type SyncState = {
 };
 
 export function useBackendSync() {
+  const queryClient = useQueryClient();
   const [state, setState] = useState<SyncState>({
     isOnline: true,
     isSyncing: false,
@@ -19,7 +21,10 @@ export function useBackendSync() {
     setState((prev) => ({ ...prev, isSyncing: true }));
 
     try {
-      await Promise.all([refreshApiKeys(), refreshTokenUsage()]);
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: apiKeysQueryKey }),
+        refreshTokenUsage(),
+      ]);
 
       setState((prev) => ({
         ...prev,
@@ -28,7 +33,7 @@ export function useBackendSync() {
     } finally {
       setState((prev) => ({ ...prev, isSyncing: false }));
     }
-  }, []);
+  }, [queryClient]);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((status) => {

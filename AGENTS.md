@@ -128,3 +128,8 @@ This repo uses TanStack Query and TanStack React DB together, but nothing is per
 
 - Auth session is explicitly persisted: SecureStore on native and IndexedDB on web (`packages/hooks/src/auth/auth-storage.ts`).
 - React Query cache is not currently persisted (`apps/self-service/src/queries/query-client.ts`).
+
+### Current API keys approach
+
+- API keys are Query-first (React Query + REST) and do not use a local collection.
+- Mutations invalidate the `api-keys` query on success rather than optimistic local inserts.
