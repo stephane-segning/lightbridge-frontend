@@ -68,11 +68,9 @@ export function RuntimeConfigProvider({
   onReady?: (config: AppRuntimeConfig) => void;
 }) {
   const [config, setConfig] = useState<AppRuntimeConfig | null>(null);
-  console.log('was 01');
 
   useEffect(() => {
     let mounted = true;
-    console.log('was 02');
 
     loadRuntimeConfig()
       .then((next) => {
@@ -89,8 +87,6 @@ export function RuntimeConfigProvider({
       mounted = false;
     };
   }, []);
-
-  console.log('was 03');
 
   if (!config) {
     return <>{fallback}</>;
