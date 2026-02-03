@@ -14,6 +14,8 @@ This document describes the working method used to evolve this repository. It is
 ## 2) Repository Structure
 
 - `apps/self-service` - Expo app (cross-platform UI)
+- `apps/self-service/src/app` - Expo Router routes and layouts (file-based routing)
+- `apps/self-service/src/configs` - app-level configs (query client, auth config)
 - `packages/ui` - UI primitives (RN components with NativeWind, cva, cn)
 - `packages/hooks` - service layer hooks (TanStack Query)
 - `packages/api-rest` - REST API client package (Hey API codegen target)
@@ -23,9 +25,10 @@ This document describes the working method used to evolve this repository. It is
 ## 3) Architecture: MVC Layering
 
 ### View Layer (App)
-- Lives in `apps/self-service/src/views` and `apps/self-service/src/screens`.
+- Routes and layouts live in `apps/self-service/src/app` (Expo Router).
+- Screens and views live in `apps/self-service/src/screens` and `apps/self-service/src/views`.
 - Only composes UI primitives from `@lightbridge/ui`.
-- No direct `react-native` imports in view/screen components.
+- No direct `react-native` imports in route/screen/view components.
 - No raw className strings in views/screens.
 - No literal user-visible strings; always use `t('...')`.
 
@@ -55,11 +58,11 @@ This document describes the working method used to evolve this repository. It is
 
 ## 5) Navigation Rules
 
-- Use React Navigation with:
-  - bottom tabs for small screens (max 4 tabs)
-  - sticky side navigation for large screens
-- Navigation composition lives in `apps/self-service/src/navigation`.
-- Any layout or styling is done through UI primitives.
+- Use Expo Router (file-based routing).
+- Routes and layouts live in `apps/self-service/src/app`.
+- Tabs live under `apps/self-service/src/app/(tabs)` and use `Tabs` with `ResponsiveTabBar`.
+- Auth routes live under `apps/self-service/src/app/(auth)`.
+- Use `Stack`, `Tabs`, `router`, `Link`, and `useLocalSearchParams` from `expo-router` in app code.
 - Screen titles and tab labels must be translated.
 
 ## 6) Naming and File Conventions
@@ -67,7 +70,7 @@ This document describes the working method used to evolve this repository. It is
 - Filenames: kebab-case (e.g., `api-keys-list-view.tsx`).
 - Folder names: kebab-case.
 - Exports: use named exports; avoid default exports in packages unless required by a framework.
-- Keep `App.tsx` and `index.js` as framework entrypoints.
+- Entry is `expo-router/entry` via `apps/self-service/index.js` and `apps/self-service/package.json`.
 
 ## 7) Dependency Management
 
@@ -95,3 +98,4 @@ Before finalizing changes:
 - [ ] UI components use `cva` + `cn`.
 - [ ] Hooks live in `packages/hooks`.
 - [ ] API logic is in `packages/api-rest` or `packages/api-native`.
+- [ ] Routes live in `apps/self-service/src/app`.

@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useRoute } from '@react-navigation/native';
-import type { RouteProp } from '@react-navigation/native';
-
+import { useLocalSearchParams } from 'expo-router';
 import { useApiKey, useCreateApiKey, useUpdateApiKey } from '@lightbridge/hooks';
 import { ApiKeyFormView } from '../views/api-key-form-view';
-import type { TabParamList } from '../navigation/types';
-
-type Route = RouteProp<TabParamList, 'ApiKeyEditor'>;
 
 export function ApiKeyEditorScreen() {
-  const route = useRoute<Route>();
-  const apiKeyId = route.params?.id ?? null;
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const apiKeyId = typeof params.id === 'string' ? params.id : null;
   const { data } = useApiKey(apiKeyId);
   const createKey = useCreateApiKey();
   const updateKey = useUpdateApiKey();

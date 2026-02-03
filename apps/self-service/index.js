@@ -1,5 +1,1 @@
-import registerRootComponent from 'expo/src/launch/registerRootComponent';
-
-import App from './App';
-
-registerRootComponent(App);
+export { default } from 'expo-router/entry';

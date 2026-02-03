@@ -1,18 +1,14 @@
 import React from 'react';
 
+import { useRouter } from 'expo-router';
 import { useAuthSession, useKeycloakLogin } from '@lightbridge/hooks';
-import { useNavigation } from '@react-navigation/native';
-import { keycloakConfig } from '../app/keycloak-config';
+import { keycloakConfig } from '../configs/keycloak-config';
 import { LoginView } from '../views/login-view';
-import type { RootStackParamList } from '../navigation/types';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 export function LoginScreen() {
   const { isAuthenticated } = useAuthSession();
   const { promptAsync, isLoading } = useKeycloakLogin(keycloakConfig);
-  const navigation = useNavigation<Navigation>();
+  const router = useRouter();
 
   if (isAuthenticated) {
     return null;
@@ -21,7 +17,7 @@ export function LoginScreen() {
   return (
     <LoginView
       onSsoPress={() => promptAsync()}
-      onHelpPress={() => navigation.navigate('Help')}
+      onHelpPress={() => router.push('/help')}
       loading={isLoading}
     />
   );

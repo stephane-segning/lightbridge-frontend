@@ -11,7 +11,6 @@
     "codegen": "openapi-ts -f openapi-ts.config.ts"
   },
   "dependencies": {
-    "@dotlottie/react-player": "^1.6.19",
     "axios": "^1.13.4",
     "zod": "^4.3.6"
   },

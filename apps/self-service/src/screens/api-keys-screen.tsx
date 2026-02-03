@@ -1,27 +1,18 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-
+import { useRouter } from 'expo-router';
 import { useApiKeys } from '@lightbridge/hooks';
 import { ApiKeysListView } from '../views/api-keys-list-view';
-import type { RootStackParamList, TabParamList } from '../navigation/types';
-
-type RootNav = NativeStackNavigationProp<RootStackParamList>;
-
-type TabNav = BottomTabNavigationProp<TabParamList>;
 
 export function ApiKeysScreen() {
   const { data = [] } = useApiKeys();
-  const rootNavigation = useNavigation<RootNav>();
-  const tabNavigation = useNavigation<TabNav>();
+  const router = useRouter();
 
   return (
     <ApiKeysListView
       items={data}
-      onCreate={() => tabNavigation.navigate('ApiKeyEditor')}
-      onEdit={(id) => tabNavigation.navigate('ApiKeyEditor', { id })}
-      onDelete={(id, name) => rootNavigation.navigate('DeleteApiKey', { id, name })}
+      onCreate={() => router.push('/api-key-editor')}
+      onEdit={(id) => router.push({ pathname: '/api-key-editor', params: { id } })}
+      onDelete={(id, name) => router.push({ pathname: '/delete-api-key', params: { id, name } })}
     />
   );
 }

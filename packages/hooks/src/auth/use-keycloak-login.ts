@@ -63,17 +63,15 @@ export function useKeycloakLogin(config: KeycloakConfig) {
           accessToken: tokenResult.accessToken,
           refreshToken: tokenResult.refreshToken,
           idToken: tokenResult.idToken,
-          expiresAt: tokenResult.expiresIn
-            ? Date.now() + tokenResult.expiresIn * 1000
-            : undefined,
+          expiresAt: tokenResult.expiresIn ? Date.now() + tokenResult.expiresIn * 1000 : undefined,
           tokenType: tokenResult.tokenType,
           scope: tokenResult.scope,
         };
 
         let user = null;
 
-        if (discovery.userinfoEndpoint) {
-          const userInfoResponse = await fetch(discovery.userinfoEndpoint, {
+        if (discovery.userInfoEndpoint) {
+          const userInfoResponse = await fetch(discovery.userInfoEndpoint, {
             headers: {
               Authorization: `Bearer ${tokenResult.accessToken}`,
             },

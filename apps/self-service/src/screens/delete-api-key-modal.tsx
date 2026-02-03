@@ -1,31 +1,29 @@
 import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import type { RouteProp } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useDeleteApiKey } from '@lightbridge/hooks';
 import { DeleteApiKeyView } from '../views/delete-api-key-view';
-import type { RootStackParamList } from '../navigation/types';
-
-type Route = RouteProp<RootStackParamList, 'DeleteApiKey'>;
-
-type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 export function DeleteApiKeyModal() {
-  const route = useRoute<Route>();
-  const navigation = useNavigation<Navigation>();
+  const params = useLocalSearchParams<{ id?: string | string[]; name?: string | string[] }>();
+  const router = useRouter();
+  const id = typeof params.id === 'string' ? params.id : null;
+  const name = typeof params.name === 'string' ? params.name : '';
   const removeKey = useDeleteApiKey();
 
   const handleConfirm = async () => {
-    await removeKey.mutateAsync(route.params.id);
-    navigation.goBack();
+    if (!id) {
+      router.back();
+      return;
+    }
+    await removeKey.mutateAsync(id);
+    router.back();
   };
 
   return (
     <DeleteApiKeyView
-      name={route.params.name}
+      name={name}
       loading={removeKey.isPending}
-      onCancel={() => navigation.goBack()}
+      onCancel={() => router.back()}
       onConfirm={handleConfirm}
     />
   );

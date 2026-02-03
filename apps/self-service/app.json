@@ -15,14 +15,15 @@
       "display": "standalone",
       "orientation": "portrait",
       "startUrl": ".",
-      "lang": "en"
+      "lang": "en",
+      "bundler": "metro"
     },
 
     "experiments": {
       "tsconfigPaths": true
     },
 
-    "plugins": [],
+    "plugins": ["expo-router"],
 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
