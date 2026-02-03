@@ -76,7 +76,7 @@ function AppBootstrap() {
     if (isAuthenticated && inAuthGroup) {
       router.replace('/home');
     }
-  }, [isAuthenticated, isHydrated, router, segments]);
+  }, [isAuthenticated, isHydrated, pathname, router, segments]);
 
   return (
     <>
