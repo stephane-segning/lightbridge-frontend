@@ -14,7 +14,7 @@ import {
   useLocaleSync,
 } from '@lightbridge/hooks';
 import { AppFont, useAppFonts } from '@lightbridge/ui';
-import { queryClient } from '@app/configs/query-client';
+import { queryClient } from '@app/queries';
 import { useClientInit } from '@lightbridge/api-rest';
 import { apiConfig } from '@app/configs/api-config';
 
