@@ -23,6 +23,8 @@ export { NavItem, navItemVariants, navLabelVariants } from './components/nav-ite
 export type { NavItemProps } from './components/nav-item';
 export { Page, pageVariants } from './components/page';
 export type { PageProps } from './components/page';
+export { Scroll, scrollContentVariants, scrollVariants } from './components/scroll';
+export type { ScrollProps } from './components/scroll';
 export { Stack, stackVariants } from './components/stack';
 export type { StackProps } from './components/stack';
 export { Text, textVariants } from './components/text';

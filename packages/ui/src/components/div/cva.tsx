@@ -14,8 +14,10 @@ export const divVariants = cva('flex flex-col', {
       muted: 'bg-[#f7f7f8]',
       brand: 'bg-[#1d5bff]',
       brandSoft: 'bg-[#e8efff]',
+      accentSoft: 'bg-[#f2e9ff]',
       warningSoft: 'bg-[#fff4e5]',
       successSoft: 'bg-[#e7f9f1]',
+      success: 'bg-[#10b981]',
     },
     rounded: {
       none: '',
@@ -36,6 +38,14 @@ export const divVariants = cva('flex flex-col', {
       iconMd: 'h-10 w-10',
       iconLg: 'h-12 w-12',
       iconXl: 'h-24 w-24',
+      dot: 'h-2 w-2',
+    },
+    height: {
+      none: '',
+      hairline: 'h-px',
+      xs: 'h-2',
+      sm: 'h-3',
+      md: 'h-4',
     },
     width: {
       auto: '',
@@ -71,6 +81,7 @@ export const divVariants = cva('flex flex-col', {
     rounded: 'none',
     shadow: 'none',
     size: 'none',
+    height: 'none',
     width: 'auto',
     maxWidth: 'none',
     self: 'none',

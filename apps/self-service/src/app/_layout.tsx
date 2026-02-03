@@ -74,7 +74,7 @@ function AppBootstrap() {
     }
 
     if (isAuthenticated && inAuthGroup) {
-      router.replace('/api-keys');
+      router.replace('/home');
     }
   }, [isAuthenticated, isHydrated, router, segments]);
 

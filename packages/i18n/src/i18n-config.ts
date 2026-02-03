@@ -46,9 +46,33 @@ const resources = {
       },
       nav: {
         login: 'Login',
+        home: 'Home',
         apiKeys: 'API Keys',
         apiKeyEditor: 'Create Key',
         usage: 'Usage',
+      },
+      home: {
+        welcomeBack: 'Welcome back,',
+        greeting: 'Hello, {{name}}',
+        defaultName: 'Alex Rivera',
+        currentUsage: 'Current API Usage',
+        usagePercent: '{{percent}}%',
+        usageSummary: '{{used}} of {{total}} monthly requests',
+        quickActions: {
+          title: 'Quick Actions',
+          newToken: 'New Token',
+          endpoints: 'Endpoints',
+          usageLogs: 'Usage Logs',
+          support: 'Support',
+        },
+        activeServices: {
+          title: 'Active Services',
+        },
+        services: {
+          productionGateway: 'Production Gateway',
+          analyticsEngine: 'Analytics Engine',
+        },
+        version: 'v{{version}}',
       },
     },
   },

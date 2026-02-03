@@ -14,6 +14,7 @@ export function Div({
   rounded,
   shadow,
   size,
+  height,
   width,
   maxWidth,
   self,
@@ -24,7 +25,19 @@ export function Div({
   return (
     <ViewBase
       className={cn(
-        divVariants({ pad, tone, rounded, shadow, size, width, maxWidth, self, align, justify })
+        divVariants({
+          pad,
+          tone,
+          rounded,
+          shadow,
+          size,
+          height,
+          width,
+          maxWidth,
+          self,
+          align,
+          justify,
+        })
       )}
       {...props}
     />

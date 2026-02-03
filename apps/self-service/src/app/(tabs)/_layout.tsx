@@ -17,6 +17,7 @@ export default function TabsLayout() {
       }}
       tabBar={(props) => <ResponsiveTabBar {...props} />}
     >
+      <Tabs.Screen name="home" options={{ title: t('nav.home') }} />
       <Tabs.Screen name="api-keys" options={{ title: t('nav.apiKeys') }} />
       <Tabs.Screen name="api-key-editor" options={{ title: t('nav.apiKeyEditor') }} />
       <Tabs.Screen name="usage" options={{ title: t('nav.usage') }} />
