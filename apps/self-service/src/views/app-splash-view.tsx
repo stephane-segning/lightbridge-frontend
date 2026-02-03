@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Page, Stack, Text } from '@lightbridge/ui';
+import { Heading, Page, Stack } from '@lightbridge/ui';
 
 export function AppSplashView() {
   const { t } = useTranslation();
@@ -11,12 +11,12 @@ export function AppSplashView() {
       <Stack align="center" justify="center" flex="grow" width="full">
         <Stack align="center" gap="lg" width="full">
           <Stack align="center" gap="xs" width="full">
-            <Text intent="title" align="center">
+            <Heading tone="title" align="center">
               {t('app.brand')}
-            </Text>
-            <Text intent="body" align="center">
+            </Heading>
+            <Heading tone="subtitle" align="center">
               {t('app.splash.loading')}
-            </Text>
+            </Heading>
           </Stack>
         </Stack>
       </Stack>

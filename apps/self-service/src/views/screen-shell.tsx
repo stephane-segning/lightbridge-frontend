@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Page, Stack, Text } from '@lightbridge/ui';
+import { Heading, Page, Stack, Text } from '@lightbridge/ui';
 
 export function ScreenShell({ title, children }: { title: string; children: React.ReactNode }) {
   const { t } = useTranslation();
@@ -9,7 +9,7 @@ export function ScreenShell({ title, children }: { title: string; children: Reac
   return (
     <Page>
       <Text intent="eyebrow">{t('app.brand')}</Text>
-      <Text intent="title">{title}</Text>
+      <Heading tone="title">{title}</Heading>
       <Stack gap="md" top="lg">
         {children}
       </Stack>

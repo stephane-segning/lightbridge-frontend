@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Button, Div, Lottie, Page, Stack, Text } from '@lightbridge/ui';
+import { Button, Div, Heading, Lottie, Page, Stack, Text } from '@lightbridge/ui';
 
 const fingerprintSource = require('@lightbridge/ui/src/assets/lotties/auth/fingerprint-success.json');
 
@@ -34,9 +34,9 @@ export function LoginView({
         <Div width="full" maxWidth="md">
           <Stack flex="grow" justify="between" width="full">
             <Stack align="center" width="full">
-              <Text intent="bodyStrong" align="center">
+              <Heading tone="subtitle" align="center">
                 {t('login.title')}
-              </Text>
+              </Heading>
             </Stack>
 
             <Stack align="center" gap="lg" width="full">
@@ -45,12 +45,12 @@ export function LoginView({
               </Div>
 
               <Stack align="center" gap="sm" width="full">
-                <Text intent="title" align="center">
+                <Heading tone="title" align="center">
                   {t('login.welcome')}
-                </Text>
-                <Text intent="body" align="center">
+                </Heading>
+                <Heading tone="subtitle" align="center">
                   {t('login.description')}
-                </Text>
+                </Heading>
               </Stack>
 
               <Button

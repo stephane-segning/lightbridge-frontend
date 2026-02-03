@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Card, Stack, Text } from '@lightbridge/ui';
+import { Button, Card, Heading, Stack, Text } from '@lightbridge/ui';
 import { ScreenShell } from './screen-shell';
 import type { ApiKey } from '@lightbridge/api-rest';
 
@@ -21,7 +21,7 @@ export function ApiKeysListView({
   return (
     <ScreenShell title={t('apiKeys.title')}>
       <Stack direction="row" align="center" justify="between">
-        <Text intent="body">{t('apiKeys.subtitle')}</Text>
+        <Heading tone="subtitle">{t('apiKeys.subtitle')}</Heading>
         <Button size="sm" onPress={onCreate}>
           {t('apiKeys.new')}
         </Button>

@@ -72,7 +72,12 @@ function AppBootstrap() {
 }
 
 export default function RootLayout() {
-  const fontsLoaded = useAppFonts([AppFont.MontserratRegular, AppFont.MontserratSemiBold]);
+  const fontsLoaded = useAppFonts([
+    AppFont.BakbakOne,
+    AppFont.EricaOne,
+    AppFont.MontserratRegular,
+    AppFont.MontserratSemiBold,
+  ]);
   const [runtimeReady, setRuntimeReady] = useState(false);
   const webFallback = Platform.OS === 'web' ? <AppSplashView /> : null;
 

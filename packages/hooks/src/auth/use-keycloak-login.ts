@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import * as AuthSession from 'expo-auth-session';
+import { CodeChallengeMethod } from 'expo-auth-session';
 
 import type { AuthSession as StoredSession } from './auth-types';
 import { persistAuthSession } from './use-auth-session';
@@ -34,6 +35,7 @@ export function useKeycloakLogin(config: KeycloakConfig) {
       scopes: config.scopes ?? ['openid', 'profile', 'email'],
       responseType: AuthSession.ResponseType.Code,
       usePKCE: true,
+      codeChallengeMethod: CodeChallengeMethod.S256,
     },
     discovery
   );

@@ -3,6 +3,7 @@ import type { PressableProps, TextProps } from 'react-native';
 import { Pressable, Text } from 'react-native';
 
 import { cn } from '../../cn';
+import { AppFont } from '../../hooks/use-app-fonts';
 import { buttonTextVariants, buttonVariants } from './cva';
 import type { ButtonProps } from './types';
 
@@ -20,6 +21,8 @@ export function Button({
 }: ButtonProps) {
   const resolvedDisabled = Boolean(disabled);
 
+  const textStyle = [{ fontFamily: AppFont.BakbakOne }, textProps?.style];
+
   return (
     <PressableBase
       accessibilityRole="button"
@@ -27,7 +30,7 @@ export function Button({
       className={cn(buttonVariants({ variant, size, width, disabled: resolvedDisabled }))}
       {...props}
     >
-      <TextBase className={cn(buttonTextVariants({ variant, size }))} {...textProps}>
+      <TextBase className={cn(buttonTextVariants({ variant, size }))} {...textProps} style={textStyle}>
         {children}
       </TextBase>
     </PressableBase>
