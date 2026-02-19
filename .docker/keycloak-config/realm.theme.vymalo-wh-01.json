@@ -9,6 +9,7 @@
   "loginWithEmailAllowed": true,
   "resetPasswordAllowed": true,
   "enabled": true,
+  "sslRequired": "none",
   "adminEventsEnabled": true,
   "adminEventsDetailsEnabled": true,
   "users": [
